@@ -40,6 +40,9 @@ public class HelloWorld extends HttpServlet {
     manager = new OpenIdManager();
     manager.setRealm("http://rocky-reef-2111.herokuapp.com/"); // change to your domain
     manager.setReturnTo("http://rocky-reef-2111.herokuapp.com/"); // change to your servlet url
+    //manager.setRealm("http://localhost:5000/"); // change to your domain
+    //manager.setReturnTo("http://localhost:5000/"); // change to your servlet url
+
   }
 
   @Override
@@ -75,7 +78,6 @@ public class HelloWorld extends HttpServlet {
     pw.print(identity);
     pw.print("</p><h1>User</h1><p>");
     pw.print(getUserName(email));
-    pw.print(email == null ? "(null)" : email);
     pw.print("</p></body></html>");
     pw.flush();
   }
@@ -125,7 +127,7 @@ public class HelloWorld extends HttpServlet {
       PreparedStatement stmt = connection.prepareStatement("SELECT name FROM users WHERE email=?");
       stmt.setString(1, email);
       ResultSet rs = stmt.executeQuery();
-      if (rs.getFetchSize() == 1) {
+      while (rs.next()) {
         return rs.getString(1);
       }
       return null;

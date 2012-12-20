@@ -11,8 +11,11 @@ public class Database {
 
   public static Connection getConnection() throws URISyntaxException, SQLException {
 
-    URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
+    String s = System.getenv("DATABASE_URL");
+    if (s == null) {
+      s = "postgres://postgres:password@localhost:5432/agonj";
+    }
+    URI dbUri = new URI(s);
 
     String username = dbUri.getUserInfo().split(":")[0];
     String password = dbUri.getUserInfo().split(":")[1];
