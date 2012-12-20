@@ -7,6 +7,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.*;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class HelloWorld  extends HttpServlet {
 
@@ -14,6 +17,24 @@ public class HelloWorld  extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     resp.getWriter().print("test heroku!\n");
+
+     try  {
+       Connection connection = Database.getConnection();
+
+       Statement stmt = connection.createStatement();
+       stmt.executeUpdate("DROP TABLE IF EXISTS ticks");
+       stmt.executeUpdate("CREATE TABLE ticks (tick timestamp)");
+       stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+       ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+       while (rs.next()) {
+         resp.getWriter().print("Read from DB: " + rs.getTimestamp("tick"));
+       }
+     } catch (Exception e){
+       resp.getWriter().print(e.getMessage());
+     }
+
+
+
   }
 
   public static void main(String[] args) throws Exception{
