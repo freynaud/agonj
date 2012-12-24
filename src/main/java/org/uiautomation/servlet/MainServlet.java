@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created with IntelliJ IDEA. User: freynaud Date: 24/12/2012 Time: 11:42 To change this template
- * use File | Settings | File Templates.
- */
+
 public class MainServlet extends HttpServlet {
 
   @Override
@@ -36,15 +33,13 @@ public class MainServlet extends HttpServlet {
 
     Template index= getTemplate();
     try {
-      index.process(new HashMap<String,String>(),response.getWriter());
+      Map<String,String> root = new HashMap<String,String>();
+      index.process(root,response.getWriter());
     } catch (TemplateException e) {
       e.printStackTrace();
     }
     response.getWriter().flush();
   }
-
-
-
 
   private Template getTemplate() throws IOException {
     Configuration cfg = new Configuration();

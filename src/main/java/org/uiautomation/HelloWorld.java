@@ -75,18 +75,7 @@ public class HelloWorld extends HttpServlet {
     }
   }
 
-  private Template configFreemarker() throws IOException {
-    Configuration cfg = new Configuration();
-// Specify the data source where the template files come from.
-// Here I set a file directory for it:
-    cfg.setClassForTemplateLoading(HelloWorld.class, "/templates");
-// Specify how templates will see the data-model. This is an advanced topic...
-// but just use this:
-    cfg.setObjectWrapper(new DefaultObjectWrapper());
-    Template template = cfg.getTemplate("login.ftl");
-    return template;
 
-  }
 
 
 

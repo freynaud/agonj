@@ -12,12 +12,16 @@ public class ResourceFromJarHandler extends ResourceHandler {
 
   @Override
   public Resource getResource(String path) throws MalformedURLException {
-    URL r = getClass().getResource(path);
-    try {
-      System.out.println("serving resource : "+r.toExternalForm());
-      return Resource.newResource(r);
-    } catch (IOException e) {
+    if (path.equals("/favicon.ico")){
       return null;
+    } else {
+      URL r = getClass().getResource(path);
+      try {
+        System.out.println("serving resource : "+r.toExternalForm());
+        return Resource.newResource(r);
+      } catch (IOException e) {
+        return null;
+      }
     }
   }
 }

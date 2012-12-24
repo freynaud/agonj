@@ -160,8 +160,8 @@
                    type: "GET",
                    datatype: "jsonp",
                    success: function (response, textStatus, jqXHR) {
-                       console.log("Response : " + response)
-                       console.log("Response.title : " + response.title)
+                       //console.log("Response : " + response)
+                       //console.log("Response.title : " + response.title)
                        if (document.map) {
                            var map = document.map;
                        } else {
